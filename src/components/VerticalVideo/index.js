@@ -98,13 +98,19 @@ export default class VerticalVideo {
   initVideo() {
     const {
       video,
+      videoContainer,
       controls: {
         video: { progress, playPause },
       },
     } = this.elements;
     video.setAttribute("src", this.src);
     video.pause();
-    video.oncanplay = this.initControls.bind(this);
+    video.oncanplay = (() => {
+      video.style.maxHeight = window.innerHeight * (this.segments + 1) + "px";
+      this.initControls();
+      console.log("maxHeight: ", window.innerHeight * (this.segments + 1));
+      console.log("window.innerHeight: ", window.innerHeight);
+    }).bind(this);
     video.ontimeupdate = () => {
       progress.value = video.currentTime;
     };
@@ -329,7 +335,12 @@ export default class VerticalVideo {
   resize() {
     const segmentContainer = this.elements.controls.segment.container;
     const videoContainer = this.elements.controls.video.container;
+    const video = this.elements.video;
     segmentContainer.style.height = `calc(100% - ${videoContainer.offsetHeight}px)`;
+    video.style.maxHeight = window.innerHeight * (this.segments + 1) + "px";
+    console.log("maxHeight: ", window.innerHeight * (this.segments + 1));
+    console.log("window.innerHeight: ", window.innerHeight);
+    this.goToSegment(this.currentSegment);
   }
   // --------------------------------------------------------------------------------
 }
