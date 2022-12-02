@@ -1,0 +1,46 @@
+@import "src/scss/index.scss";
+
+html,
+body {
+  background-color: #000;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.segment-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  label {
+    margin-right: 0.5rem;
+  }
+  input {
+    max-width: 3rem;
+    padding: 0.25rem;
+  }
+}
+
+.import-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: #fff;
+
+  &.hidden {
+    display: none;
+  }
+
+  .import-file {
+    margin-bottom: 1rem;
+  }
+}
