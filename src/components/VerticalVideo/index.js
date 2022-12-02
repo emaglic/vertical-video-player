@@ -12,6 +12,7 @@ export default class VerticalVideo {
     this.notificationTimer = null;
     this.notificationDelay = 1.25;
     this.showControls = true;
+    this.helpUrl = "https://github.com/emaglic/vertical-video-player";
     this.initUI(this.elements);
     this.initVideo();
   }
@@ -51,8 +52,9 @@ export default class VerticalVideo {
             </div>
           </div>
           <div class='vv-segment-controls'>
-            <button class="vv-prev vv-icon flip-y" style='background-image: url("media/images/arrow.svg")'></button>
+            <button class="vv-prev vv-icon flip-y vv-margin-top-auto" style='background-image: url("media/images/arrow.svg")'></button>
             <button class='vv-next vv-icon' style='background-image: url("media/images/arrow.svg")'></button>
+            <a target="_blank" class="vv-help vv-btn vv-icon vv-margin-top-auto"  href="${this.helpUrl}" style='background-image: url("media/images/help.svg")'><a>
           </div>
         </div>
       </div>

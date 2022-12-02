@@ -1,5 +1,6 @@
 $animSpeedOut: 1s;
 $animSpeedIn: 0.5s;
+$backOpacity: 0.9;
 
 .vv-main {
   position: absolute;
@@ -55,24 +56,26 @@ $animSpeedIn: 0.5s;
     .vv-control-toggle {
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       padding: 1rem;
       z-index: 20;
-      background-color: rgba(22, 69, 95, 0.75);
+      background-color: rgba(43, 119, 161, $backOpacity);
       transition: padding $animSpeedIn, width $animSpeedIn, height $animSpeedIn;
       .vv-icon {
+        transform: scaleX(-1);
         transition: width $animSpeedIn, height $animSpeedIn;
       }
 
       &.controls-hidden {
         padding: 0.5rem;
         transition: padding $animSpeedIn, background-color $animSpeedIn;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(43, 119, 161, $backOpacity);
+        // background-color: rgba(0, 0, 0, 0.75);
         .vv-icon {
           width: 1.5rem;
           height: 1.5rem;
           transition: width $animSpeedIn, height $animSpeedIn;
-          transform: scaleX(-1);
+          transform: scaleX(1);
         }
       }
     }
@@ -95,7 +98,7 @@ $animSpeedIn: 0.5s;
       bottom: 0px;
       left: 0px;
       box-sizing: border-box;
-      background-color: rgba(22, 69, 95, 0.75);
+      background-color: rgba(22, 69, 95, $backOpacity);
       padding: 0.75rem;
       transition: bottom $animSpeedIn;
       &.hidden {
@@ -131,16 +134,17 @@ $animSpeedIn: 0.5s;
       position: absolute;
       justify-content: center;
       align-items: center;
-      background-color: rgba(0, 0, 0, 0.75);
+      // background-color: rgba(0, 0, 0, 0.75);
+      background-color: rgba(22, 69, 95, $backOpacity);
       height: auto;
       padding: 1rem;
       top: 0;
-      left: 0;
+      right: 0;
       z-index: 15;
-      transition: left $animSpeedIn;
+      transition: right $animSpeedIn;
       &.hidden {
-        left: -100%;
-        transition: left $animSpeedOut;
+        right: -100%;
+        transition: right $animSpeedOut;
       }
 
       .vv-icon {
@@ -172,7 +176,7 @@ $animSpeedIn: 0.5s;
   .vv-notification-container {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    left: 1rem;
     border-radius: 7px;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 1rem;
@@ -193,5 +197,9 @@ $animSpeedIn: 0.5s;
       font-size: 1.25rem;
       line-height: 1.25rem;
     }
+  }
+
+  .vv-margin-top-auto {
+    margin-top: auto !important;
   }
 }
