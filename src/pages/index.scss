@@ -18,6 +18,12 @@ small {
   line-height: 1.25rem;
 }
 
+a {
+  font-size: 0.75rem;
+  color: rgb(0, 166, 255);
+  text-decoration: none;
+}
+
 .segment-container {
   display: flex;
   flex-direction: row;
@@ -70,4 +76,8 @@ small {
     margin-bottom: 1rem;
     margin-top: 1rem;
   }
+}
+
+.links {
+  margin-top: 1.5rem;
 }

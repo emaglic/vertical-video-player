@@ -54,7 +54,6 @@ $backOpacity: 0.9;
     width: 100%;
     height: auto;
     display: block;
-    // transform: translate(-50%, 0);
 
     &.vv-vert {
       display: flex;
@@ -113,7 +112,6 @@ $backOpacity: 0.9;
         padding: 0.5rem;
         transition: padding $animSpeedIn, background-color $animSpeedIn;
         background-color: rgba(43, 119, 161, $backOpacity);
-        // background-color: rgba(0, 0, 0, 0.75);
         .vv-icon {
           width: 1.5rem;
           height: 1.5rem;
@@ -177,7 +175,6 @@ $backOpacity: 0.9;
       position: absolute;
       justify-content: center;
       align-items: center;
-      // background-color: rgba(0, 0, 0, 0.75);
       background-color: rgba(22, 69, 95, $backOpacity);
       height: auto;
       padding: 1rem;
