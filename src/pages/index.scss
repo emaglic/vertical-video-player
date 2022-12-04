@@ -5,6 +5,17 @@ body {
   background-color: #000;
   overflow-x: hidden;
   overflow-y: hidden;
+  font-size: 16px;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+small {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
 }
 
 .segment-container {
@@ -19,6 +30,21 @@ body {
   }
   input {
     max-width: 3rem;
+    padding: 0.25rem;
+  }
+}
+
+.aspect-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  label {
+    margin-right: 0.5rem;
+  }
+  select {
     padding: 0.25rem;
   }
 }
@@ -42,5 +68,6 @@ body {
 
   .import-file {
     margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 }

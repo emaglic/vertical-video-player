@@ -2,7 +2,8 @@ import "./index.scss";
 
 export default class VerticalVideo {
   // --------------------------------------------------------------------------------
-  constructor({ container, src, segments }) {
+  constructor({ container, src, segments, aspect }) {
+    this.aspect = aspect;
     this.src = src;
     this.segments = segments - 1;
     this.elements = { container };
@@ -23,6 +24,10 @@ export default class VerticalVideo {
     const main = document.createElement("div");
     main.classList.add("vv-main");
     main.innerHTML = /*html*/ `
+      <div class='vv-video-mask-container'>
+        <div class='vv-video-mask-left'></div>
+        <div class='vv-video-mask-right'></div>
+      </div>
       <div class='vv-video-container'>
         <video class='vv-video'>
       </div>
@@ -62,9 +67,17 @@ export default class VerticalVideo {
 
     const video = main.querySelector(".vv-video");
     const videoContainer = main.querySelector(".vv-video-container");
+    videoContainer.classList.add(`${this.aspect === "horz" ? "vv-horz" : "vv-vert"}`);
+    const videoMaskContainer = main.querySelector(".vv-video-mask-container");
+    videoMaskContainer.classList.add(`${this.aspect === "horz" ? "vv-horz" : "vv-vert"}`);
     const controlsContainer = main.querySelector(".vv-controls");
     const videoControls = controlsContainer.querySelector(".vv-video-controls");
     const segmentControls = controlsContainer.querySelector(".vv-segment-controls");
+    const videoMask = {
+      container: videoMaskContainer,
+      left: videoMaskContainer.querySelector(".vv-video-mask-left"),
+      right: videoMaskContainer.querySelector(".vv-video-mask-right"),
+    };
     const controls = {
       container: controlsContainer,
       controlsInner: controlsContainer.querySelector(".vv-controls-inner"),
@@ -91,7 +104,7 @@ export default class VerticalVideo {
         skipFwd: videoControls.querySelector(".vv-skip-fwd"),
       },
     };
-    this.elements = { ...this.elements, main, video, videoContainer, controls };
+    this.elements = { ...this.elements, main, video, videoContainer, videoMask, controls };
     container.appendChild(main);
   }
   // --------------------------------------------------------------------------------
@@ -108,10 +121,8 @@ export default class VerticalVideo {
     video.setAttribute("src", this.src);
     video.pause();
     video.oncanplay = (() => {
-      video.style.maxHeight = window.innerHeight * (this.segments + 1) + "px";
+      this.resize();
       this.initControls();
-      console.log("maxHeight: ", window.innerHeight * (this.segments + 1));
-      console.log("window.innerHeight: ", window.innerHeight);
     }).bind(this);
     video.ontimeupdate = () => {
       progress.value = video.currentTime;
@@ -272,8 +283,14 @@ export default class VerticalVideo {
 
   // --------------------------------------------------------------------------------
   goToSegment(segment) {
-    const { videoContainer } = this.elements;
-    videoContainer.style.top = -(videoContainer.offsetHeight / (this.segments + 1)) * segment + "px";
+    const { videoContainer, video } = this.elements;
+    if (this.aspect === "vert") {
+      videoContainer.style.top = -(videoContainer.offsetHeight / (this.segments + 1)) * segment + "px";
+    } else {
+      const segments = this.segments + 1;
+      const segmentWidth = video.offsetWidth / segments;
+      videoContainer.style.left = window.innerWidth / 2 - this.currentSegment * segmentWidth - segmentWidth / 2 + "px";
+    }
   }
   // --------------------------------------------------------------------------------
 
@@ -338,10 +355,20 @@ export default class VerticalVideo {
     const segmentContainer = this.elements.controls.segment.container;
     const videoContainer = this.elements.controls.video.container;
     const video = this.elements.video;
-    segmentContainer.style.height = `calc(100% - ${videoContainer.offsetHeight}px)`;
-    video.style.maxHeight = window.innerHeight * (this.segments + 1) + "px";
-    console.log("maxHeight: ", window.innerHeight * (this.segments + 1));
-    console.log("window.innerHeight: ", window.innerHeight);
+    if (segmentContainer) segmentContainer.style.height = `calc(100% - ${videoContainer.offsetHeight}px)`;
+    if (this.aspect === "vert") {
+      video.style.maxHeight = window.innerHeight * (this.segments + 1) + "px";
+    } else {
+      const {
+        videoMask: { container, left, right },
+      } = this.elements;
+      const segments = this.segments + 1;
+      const segmentWidth = video.offsetWidth / segments;
+
+      const width = (window.innerWidth - segmentWidth) / 2;
+      left.style.width = width + "px";
+      right.style.width = width + "px";
+    }
     this.goToSegment(this.currentSegment);
   }
   // --------------------------------------------------------------------------------

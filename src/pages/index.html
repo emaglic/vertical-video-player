@@ -6,13 +6,27 @@
   </head>
   <body>
     <div class="import-container">
-      <h1>Vertical Video Player</h1>
+      <h1>Segmented Video Player</h1>
+      <p>For playing vertical or ultra-wide (horizontal) video on a standard 16:9 monitor</p>
+      <small>This player splits vertical video or ultra-wide video into 'segments' and allows you to quickly switch between them on the fly, while the video is playing.</small>
+      <div class="aspect-container">
+        <label>Aspect</label>
+        <select class="aspect-select">
+          <option value="vert">Vertical Video</option>
+          <option value="horz">Horizontal Video</option>
+        </select>
+      </div>
       <div class="segment-container">
-        <label>VIDEO SEGMENTS</label>
+        <label>Segments</label>
         <input class="segments-num" type="number" min="1" max="99" value="3" />
       </div>
       <input type="file" class="import-file" />
-      <p>Press "C" to Toggle Control Visibility</p>
+      <p>Controls</p>
+      <small>Press Up/Down to switch between segments.</small>
+      <small>Press Left/Right to scrub video +/- 1 second</small>
+      <small>Press SPACE to play/pause video.</small>
+      <small>Press M to mute/unmute video.</small>
+      <small>Press C to toggle control-bar on/off</small>
     </div>
     <div class="vertical-video-container"></div>
   </body>
